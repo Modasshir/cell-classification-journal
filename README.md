@@ -1,6 +1,6 @@
 ### 1. Directory information
 In the cells directory, there are many sub-folders. A brief description of each folder is as follows:
-	<ol>
+	<ol type='a'>
 	<li>'annotation' contains xml files containing annotation for corresponding image.</li>
 	<li>'images' contains the raw images (gif format).</li>
 	<li>'notebooks' contains a self-contained jupyter notebook that shows how to use the trained model to detect cells in an image.</li>
