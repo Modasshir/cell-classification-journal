@@ -1,4 +1,4 @@
-1. In the cells directory, there are many sub-folders. A brief description of each folder is as follows:
+### 1. In the cells directory, there are many sub-folders. A brief description of each folder is as follows:
 	a. 'annotation' contains xml files containing annotation for corresponding image.
 	b. 'images' contains the raw images (gif format).
 	c. 'notebooks' contains a self-contained jupyter notebook that shows how to use the trained model to detect cells in an image.
@@ -10,7 +10,7 @@
 'patches' and 'png_images' will be created during training/testing of the model.
 
 
-2. Installation:
+### 2. Installation:
 
 The installation instructions are for linux/ubuntu. For Windows, the approach is similar, however, not tested. If you are using Anaconda(recommended), please replace the following 'pip' in the following instructions with 'conda'. 
 
@@ -26,7 +26,7 @@ Otherwise,
 
 
 
-3. Usage:
+### 3. Usage:
 	
 	Open a terminal and go to the project directory. Then execute the following command.
 
