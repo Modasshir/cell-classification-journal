@@ -29,8 +29,11 @@ def focal_loss(gamma=2., alpha=.25):
     def focal_loss_fixed(y_true, y_pred):
         pt_1 = tf.where(tf.equal(y_true, 1), y_pred, tf.ones_like(y_pred))
         pt_0 = tf.where(tf.equal(y_true, 0), y_pred, tf.zeros_like(y_pred))
-        return -K.sum(alpha * K.pow(1. - pt_1, gamma) * K.log(pt_1)) - K.sum((1 - alpha) * K.pow(pt_0, gamma) * K.log(1. - pt_0))
+        return -K.sum(alpha * K.pow(1. - pt_1, gamma) * K.log(pt_1)) - K.sum(
+            (1 - alpha) * K.pow(pt_0, gamma) * K.log(1. - pt_0))
+
     return focal_loss_fixed
+
 
 if __name__ == '__main__':
 
@@ -67,13 +70,9 @@ if __name__ == '__main__':
         patience=25,
         verbose=1,
         mode='auto')
-    if not args.reproduce:
-        weights_file = '../weights/weights_' + model_name + '_' + str(num_classes) + '_classes_' + str(
-            img_width) + 'x' + str(
-            img_height) + '.hdf5'
-
-    else:
+    if args.reproduce:
         weights_file = '../weights/reproduce.hdf5'
+
     checkpointer5 = callbacks.ModelCheckpoint(filepath=weights_file, verbose=1,
                                               save_best_only=True, period=1)
     if os.path.isfile(weights_file):
@@ -117,8 +116,10 @@ if __name__ == '__main__':
         gc.collect()
 
     print('loading testing data. Please wait' + '.' * 10)
+
     x_test, y_test3, y_test5 = get_partial_data(
         test_df, img_width=img_width, img_height=img_height, channel=channel)
+
     print('data loaded.')
     # print(model5.evaluate(x_test, y_test5, batch_size=64, verbose=1))
 

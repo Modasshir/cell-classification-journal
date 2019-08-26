@@ -1,3 +1,5 @@
+This repository contains the source code accompanying ---- paper. 
+
 ### 1. Directory information
 In the cells directory, there are many sub-folders. A brief description of each folder is as follows:
     <ol type='a'>
