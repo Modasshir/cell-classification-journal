@@ -6,7 +6,8 @@ In the cells directory, there are many sub-folders. A brief description of each 
 	d. 'scripts' folder contains python scripts for data preparation.
 	e. 'src' folder contains source code for training the proposed model.
 	f. 'utils' contains necessary python scripts for training and data preparation.
-	g. 'weights' contains weights of trained models.
+
+Please create a folder in the root directory of the project named 'weights'. Then download <a href='https://drive.google.com/file/d/1h9-Xo12b2QoTaGlGdAP6tFyhj1ckLrKH/view?usp=sharing'>reproducible weights</a> and put this inside 'weights' folder.
 
 'patches' and 'png_images' will be created during training/testing of the model.
 
@@ -50,5 +51,10 @@ In order to only test and reproduce the result in the paper, execute
 	python densenet_scratch.py --reproduce True
 
 
-
 There is a fully working and self-contained notebook for processing microscopic images to classify cells is included in the notebooks folder.
+
+### 4. License
+
+This project was developed at the University of North Carolina at Chapel Hill.
+The open-source version is licensed under the GNU General Public License
+Version 3 (GPLv3).
