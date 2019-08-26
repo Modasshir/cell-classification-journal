@@ -1,12 +1,14 @@
 ### 1. Directory information
 In the cells directory, there are many sub-folders. A brief description of each folder is as follows:
-	a. 'annotation' contains xml files containing annotation for corresponding image.
-	b. 'images' contains the raw images (gif format).
-	c. 'notebooks' contains a self-contained jupyter notebook that shows how to use the trained model to detect cells in an image.
-	d. 'scripts' folder contains python scripts for data preparation.
-	e. 'src' folder contains source code for training the proposed model.
-	f. 'utils' contains necessary python scripts for training and data preparation.
-
+	<ol>
+	<li>'annotation' contains xml files containing annotation for corresponding image.</li>
+	<li>'images' contains the raw images (gif format).</li>
+	<li>'notebooks' contains a self-contained jupyter notebook that shows how to use the trained model to detect cells in an image.</li>
+	<li>'scripts' folder contains python scripts for data preparation.</li>
+	<li>'src' folder contains source code for training the proposed model.</li>
+	<li>'utils' contains necessary python scripts for training and data preparation.</li>
+	</ol>
+	
 Please create a folder in the root directory of the project named 'weights'. Then download <a href='https://drive.google.com/file/d/1h9-Xo12b2QoTaGlGdAP6tFyhj1ckLrKH/view?usp=sharing'>reproducible weights</a> and put this inside 'weights' folder.
 
 'patches' and 'png_images' will be created during training/testing of the model.
