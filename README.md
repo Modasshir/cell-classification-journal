@@ -1,4 +1,5 @@
-### 1. In the cells directory, there are many sub-folders. A brief description of each folder is as follows:
+### 1. Directory information
+In the cells directory, there are many sub-folders. A brief description of each folder is as follows:
 	a. 'annotation' contains xml files containing annotation for corresponding image.
 	b. 'images' contains the raw images (gif format).
 	c. 'notebooks' contains a self-contained jupyter notebook that shows how to use the trained model to detect cells in an image.
@@ -28,25 +29,25 @@ Otherwise,
 
 ### 3. Usage:
 	
-	Open a terminal and go to the project directory. Then execute the following command.
+Open a terminal and go to the project directory. Then execute the following command.
 
-		cellsdir=`pwd`
+	cellsdir=`pwd`
 
-	If you have downloaded the cells folder, please execute the following commands:
+If you have downloaded the cells folder, please execute the following commands:
 
-		cd $cellsdir/scripts
-		python data_preparation.py
-		python gif_to_png.py
+	cd $cellsdir/scripts
+	python data_preparation.py
+	python gif_to_png.py
 
-	In order to train and test, execute the following commands: (this is not recommeded since we could not provide all data due to confidentiality issues.)
+In order to train and test, execute the following commands: (this is not recommeded since we could not provide all data due to confidentiality issues.)
 
-		cd $cellsdir/src
-		python densenet_scratch.py
+	cd $cellsdir/src
+	python densenet_scratch.py
 
 
-	In order to only test and reproduce the result in the paper, execute
+In order to only test and reproduce the result in the paper, execute
 
-		python densenet_scratch.py --reproduce True
+	python densenet_scratch.py --reproduce True
 
 
 
