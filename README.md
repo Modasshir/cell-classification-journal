@@ -24,7 +24,7 @@ The installation instructions are for Linux/Ubuntu. For Windows, the approach is
 
     source activate cells # activates the environment
 
-    conda install -y scikit-learn scikit-image pillow numpy keras progressbar2 tqdm opencv-python pandas jupyter notebook ipython #installing dependencies
+    conda install -y scikit-learn scikit-image pillow numpy keras progressbar2 tqdm opencv pandas jupyter notebook ipython #installing dependencies
 
 If you have Nvidia GPU, please follow the next instruction.
     
