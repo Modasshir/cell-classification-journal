@@ -1,4 +1,4 @@
-## This repository contains the source code accompanying ---- paper. 
+##  This repository contains the source code accompanying ---- paper. 
 
 ### 1. Directory information
 In the cells directory, there are many sub-folders. A brief description of each folder is as follows:
@@ -18,17 +18,21 @@ Please create a folder in the root directory of the project named 'weights'. The
 
 ### 2. Installation:
 
-The installation instructions are for Linux/Ubuntu. For Windows, the approach is similar, however, not tested. If you are using Anaconda(recommended), please replace the following 'pip' in the following instructions with 'conda'. 
+The installation instructions are for Linux/Ubuntu. For Windows, the approach is similar, however, not tested. First, if you do not already have anaconda, please install it from <a href='https://www.anaconda.com/distribution/'> here </a>. Then follow the instructions. 
 
-    pip install scikit-learn scikit-image pillow numpy keras progressbar2 tqdm opencv-python pandas jupyter notebook ipython
+    conda create -n cells python=3.6 -y #create 'cells' environment
 
-If you have GPU, please follow the next instruction.
+    source activate cells # activates the environment
+
+    conda install -y scikit-learn scikit-image pillow numpy keras progressbar2 tqdm opencv-python pandas jupyter notebook ipython #installing dependencies
+
+If you have Nvidia GPU, please follow the next instruction.
     
-    pip install tensorflow-gpu
+    conda install tensorflow-gpu
 
 Otherwise,
     
-    pip install tensorflow
+    conda install tensorflow
 
 
 
@@ -47,12 +51,12 @@ If you have downloaded the cells folder, please execute the following commands:
 To train and test, execute the following commands: (this is not recommended since we could not provide all data due to confidentiality issues.)
 
     cd $cellsdir/src
-    python densenet_scratch.py
+    python densenet_train_test.py
 
 
 To only test and reproduce the result in the paper, execute
 
-    python densenet_scratch.py --reproduce True
+    python densenet_train_test.py --reproduce True
 
 
 There is a fully working and self-contained notebook for processing microscopic images to classify cells is included in the notebooks folder.

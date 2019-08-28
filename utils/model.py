@@ -1,11 +1,13 @@
-from keras import applications
-from keras.layers import Conv2D, MaxPooling2D
-from keras.layers import Dense, Dropout, Activation, Flatten, GlobalAveragePooling2D
-from keras.models import Model
-from keras.models import Sequential
-from keras.optimizers import SGD, Adam
-
 from densenet121 import *
+from keras import applications
+
+from keras.layers import Input, ZeroPadding2D, Conv2D, Flatten
+from keras.layers.convolutional import Convolution2D
+from keras.layers.core import Dense, Dropout, Activation
+from keras.layers.normalization import BatchNormalization
+from keras.layers.pooling import GlobalAveragePooling2D, MaxPooling2D
+from keras.models import Model, Sequential
+from keras.optimizers import SGD, Adam
 
 
 def get_baseline_model(num_classes, img_width=32, img_height=32, channel=1, lr=0.001):
@@ -117,7 +119,6 @@ def get_resnet_model(num_classes, img_width=200, img_height=200, channel=3, lr=1
 
 
 def get_dense_model(num_classes, img_width=200, img_height=200, channel=3, lr=1e-5, loss=None):
-
     nb_dense_block = 4
     growth_rate = 32
     reduction = 0.0
@@ -131,12 +132,8 @@ def get_dense_model(num_classes, img_width=200, img_height=200, channel=3, lr=1e
 
     # Handle Dimension Ordering for different backends
     global concat_axis
-    if K.image_dim_ordering() == 'tf':
-        concat_axis = 3
-        img_input = Input(shape=(img_width, img_height, channel), name='data')
-    else:
-        concat_axis = 1
-        img_input = Input(shape=(channel, img_width, img_height), name='data')
+    concat_axis = 3
+    img_input = Input(shape=(img_width, img_height, channel), name='data')
 
     # From architecture for ImageNet (Table 1 in the paper)
     nb_filter = 64
@@ -156,7 +153,7 @@ def get_dense_model(num_classes, img_width=200, img_height=200, channel=3, lr=1e
     for block_idx in range(nb_dense_block - 1):
         stage = block_idx + 2
         x, nb_filter = dense_block(x, stage, nb_layers[
-                                   block_idx], nb_filter, growth_rate, dropout_rate=dropout_rate, weight_decay=weight_decay)
+            block_idx], nb_filter, growth_rate, dropout_rate=dropout_rate, weight_decay=weight_decay)
 
         # Add transition_block
         x = transition_block(x, stage, nb_filter, compression=compression,
@@ -165,12 +162,12 @@ def get_dense_model(num_classes, img_width=200, img_height=200, channel=3, lr=1e
 
     final_stage = stage + 1
     x, nb_filter = dense_block(x, final_stage, nb_layers[
-                               -1], nb_filter, growth_rate, dropout_rate=dropout_rate, weight_decay=weight_decay)
+        -1], nb_filter, growth_rate, dropout_rate=dropout_rate, weight_decay=weight_decay)
 
     x = BatchNormalization(epsilon=eps, axis=concat_axis,
                            name='conv' + str(final_stage) + '_blk_bn')(x)
     x = Scale(axis=concat_axis, name='conv' +
-              str(final_stage) + '_blk_scale')(x)
+                                     str(final_stage) + '_blk_scale')(x)
     x = Activation('relu', name='relu' + str(final_stage) + '_blk')(x)
     x = GlobalAveragePooling2D(name='pool' + str(final_stage))(x)
 
@@ -180,6 +177,18 @@ def get_dense_model(num_classes, img_width=200, img_height=200, channel=3, lr=1e
     model = Model(img_input, x, name='densenet')
 
     optimizer = Adam(lr=1e-4)  # Using Adam instead of SGD to speed up training
+
+    if loss is None:
+        loss = 'categorical_crossentropy'
+    model.compile(loss=loss,
+                  optimizer=optimizer, metrics=["accuracy"])
+    return model
+
+
+def get_keras_app_densenet(num_classes, img_width=200, img_height=200, channel=3, lr=1e-5, loss=None):
+    model = applications.densenet.DenseNet121(input_shape=(img_width,img_height,channel),weights=None, classes=num_classes)
+
+    optimizer = Adam(lr=lr)  # Using Adam instead of SGD to speed up training
 
     if loss is None:
         loss = 'categorical_crossentropy'

@@ -1,20 +1,20 @@
 import gc
 import sys
+import warnings
+warnings.filterwarnings("ignore")
 
 import argparse
 import numpy as np
 import os
 import pandas as pd
-import warnings
 from keras import callbacks
 from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.utils import shuffle
 
-warnings.filterwarnings("ignore")
 sys.path.insert(0, '../utils/')
 
 from data import *
-from model import get_dense_model
+from model import get_dense_model, get_keras_app_densenet
 
 from keras import backend as K
 
@@ -62,16 +62,22 @@ if __name__ == '__main__':
     loading models and weights
     '''
     num_classes = 5
-    model5 = get_dense_model(num_classes, img_width,
-                             img_height, channel, lr, loss=focal_loss())
+    # model5 = get_dense_model(num_classes, img_width,
+    #                          img_height, channel, lr, loss=focal_loss())
+
+    model5 = get_keras_app_densenet(num_classes, img_width, img_height, channel, lr, focal_loss())
+
     earlyStopping = callbacks.EarlyStopping(
         monitor='val_loss',
         min_delta=0.00001,
         patience=25,
         verbose=1,
         mode='auto')
+
     if args.reproduce:
         weights_file = '../weights/reproduce.hdf5'
+    else:
+        weights_file = '../weights/weights_densenet_{}_classes_{}x{}'.format(num_classes,img_width,img_height)
 
     checkpointer5 = callbacks.ModelCheckpoint(filepath=weights_file, verbose=1,
                                               save_best_only=True, period=1)
@@ -85,7 +91,6 @@ if __name__ == '__main__':
     '''
     Split training..............
     '''
-
     if not args.reproduce:
         for i in range(10):
             x_train, y_train3, y_train5 = get_partial_data(shuffle(train_df), img_width=img_width,
@@ -100,7 +105,7 @@ if __name__ == '__main__':
                        batch_size=batch_size,
                        validation_split=0.15,
                        # validation_data=(x_val, y_val5),
-                       callbacks=[checkpointer5])
+                       callbacks=[checkpointer5,earlyStopping])
 
             # loading model state where it achieved best performance on validation
             # dataset
