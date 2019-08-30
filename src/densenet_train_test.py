@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--reproduce', type=bool, default=False)
+    parser.add_argument('--test', type=bool, default=False)
 
     args = parser.parse_args()
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         verbose=1,
         mode='auto')
 
-    if args.reproduce:
+    if args.test:
         weights_file = '../weights/reproduce.hdf5'
     else:
         weights_file = '../weights/weights_densenet_{}_classes_{}x{}'.format(num_classes,img_width,img_height)
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     '''
     Split training..............
     '''
-    if not args.reproduce:
+    if not args.test:
         for i in range(10):
             x_train, y_train3, y_train5 = get_partial_data(shuffle(train_df), img_width=img_width,
                                                            img_height=img_height, channel=channel)

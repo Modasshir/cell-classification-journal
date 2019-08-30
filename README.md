@@ -11,7 +11,7 @@ In the cells directory, there are many sub-folders. A brief description of each 
     <li>'utils' contains necessary python scripts for training and data preparation.</li>
     </ol>
     
-Please create a folder in the root directory of the project named 'weights'. Then download <a href='https://drive.google.com/file/d/1h9-Xo12b2QoTaGlGdAP6tFyhj1ckLrKH/view?usp=sharing'>reproducible weights</a> and put this inside 'weights' folder.
+Please create a folder in the root directory of the project named 'weights'. Then download <a href='https://drive.google.com/file/d/1h9-Xo12b2QoTaGlGdAP6tFyhj1ckLrKH/view?usp=sharing'>reproducible weights</a> and put this inside 'weights' folder. The is the trained weights for on the full dataset.
 
 'patches' and 'png_images' will be created during the training/testing of the model.
 
@@ -54,12 +54,13 @@ To train and test, execute the following commands: (this is not recommended sinc
     python densenet_train_test.py
 
 
-To only test and reproduce the result in the paper, execute
+To only test, execute
 
-    python densenet_train_test.py --reproduce True
+    python densenet_train_test.py --test True
 
+The results will not be exactly the same as mentioned in the paper because the test dataset do not contain all the samples.
 
-There is a fully working and self-contained notebook for processing microscopic images to classify cells is included in the notebooks folder.
+<!-- There is a fully working and self-contained notebook for processing microscopic images to classify cells included in the notebooks folder. -->
 
 ### 4. License
 
